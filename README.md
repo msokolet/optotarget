@@ -1,21 +1,33 @@
-## Regression benchmarking package
+## Optotarget
 
-Code for testing the accuracy and speed of various implementations of ridge regression on widefield calcium imaging data. Scalable to handle an arbitrary number of methods for calculating alpha (the ridge parameter or parameters) and for performing cross-validated prediction. Currently requires a 'demo_model.mat' file in the session directory, as outputted by Max Melin's [ridge-model-matlab-baseline](https://github.com/mdmelin/ridge-model-matlab-baseline) package. You can download an example one [here](https://drive.google.com/file/d/1JT7VCApGdOhRStd-yWtgCFuFnCx-YvV9/view?usp=sharing) (session 09-Aug-2018, animal mSM63, data from [Mussal et al. 2019](https://www.nature.com/articles/s41593-019-0502-4)).
+GUI for running optogenetic stimulation protocols across multiple locations using X and Y galvanometers. The original approach is based on [Guo et al. 2014, Neuron](https://pubmed.ncbi.nlm.nih.gov/24361077/).
+
+Requirements:
+1. A laser device with intensity controllable by an analog input
+2. X and Y galvometric mirrors that deflect the laser beam, with their positions controllable by analog inputs
+3. An analog output NI card
+4. An installation of [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html)
+5. (Highly recommended) A camera, to easily see and precisely target the laser beam.
 
 First run only:
 1. Install an [Anaconda](https://www.anaconda.com/download/) distribution of Python.
-2. Install a Python IDE that supports Jupyter notebooks. I suggest [Visual Studio Code](https://code.visualstudio.com/download). 
-3. Download or clone this package.
-4. Open Anaconda Prompt.
-5. Change directory to the package folder with `cd regbench`
-6. Create the regbench environment with `conda env create -n regbench --file environment.yml`
-7. Open regbench.ipynb
-8. Activate the regbench environment. In Visual Studio Code, this is done by [pressing select kernel](https://code.visualstudio.com/assets/docs/datascience/jupyter/native-kernel-picker.png) in the top-right corner and then picking 'regbench' from the dropdown menu.
-9. Download the recording .mat.
-10. Make sure opts['dir'] and opts['rec_name'] at the beginning of the pipeline respectively match the directory path and name of the recording .mat.
-11. Run all cells
+2. Download or clone this package.
+3. Open Anaconda Prompt.
+4. Change directory to the package folder with `cd optotarget`
+5. Create the optotarget environment with `conda env create -f environment.yml`
+6. Run `python optotarget.py`
 
 Subsequent runs:
-1. Open pipeline.ipynb
-2. Activate the regbench environment.
-3. Run all cells.
+1. Open Anaconda Prompt.
+2. Change directory to the package folder with `cd optotarget`
+3. Run `conda activate optotarget`
+4. Run `python optotarget.py`
+
+Instructions:
+1. Select the stimulation parameters (hover over each parameter for an explanation).
+2. Use the slider in step 2 to test these parameters as well as various intensities online, and optionally to produce a test pulse. Note the X and Y sliders in step 3 also control the online X and Y position.
+3. Create new targets using "create new" or load them from file via "load all". For each target, set the intensity, X position, and Y position, and group. The group determines which targets are activated together, with group 0 being the control group.
+4. Press 'start protocol'.
+
+Method of operation:
+After pressing 'start protocol', the program waits for trigger (TTL) pulses in the specified trigger channel. Each time it receives a pulse, it generates a psuedorandom number between 0 and 100. If the number is greater than 'stimulus probability', then group 0 (control) targets are stimulated. If it is lower than 'stimulus probability', then non-group 0 targets are stimulation, with each group being equally likely to be chosen.
