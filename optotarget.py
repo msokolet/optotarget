@@ -208,7 +208,7 @@ class OptoTarget(QMainWindow):
         # save in x row in targets table, if one is selected
         if self.targets_table.currentRow() != -1:
             self.targets_table.setItem(self.targets_table.currentRow(), 1, QTableWidgetItem(self.x_val.text()))
-        ot.analog_out_single(self.NI_card.text(), self.x_ch.value(), self.x_val.value())
+        ot.analog_out_single(self.NI_card.text(), self.x_ch.value(), self.x_val.value(), self.cwd)
 
     def y_val_changed(self):
         '''
@@ -218,7 +218,7 @@ class OptoTarget(QMainWindow):
         # save in y row in targets table, if one is selected
         if self.targets_table.currentRow() != -1:
             self.targets_table.setItem(self.targets_table.currentRow(), 2, QTableWidgetItem(self.y_val.text()))
-        ot.analog_out_single(self.NI_card.text(), self.y_ch.value(), self.y_val.value())
+        ot.analog_out_single(self.NI_card.text(), self.y_ch.value(), self.y_val.value(), self.cwd)
 
     def target_group_changed(self):
         '''
