@@ -900,7 +900,7 @@
      <bool>false</bool>
     </property>
    </widget>
-   <widget class="QCheckBox" name="constant_amplitude_online">
+   <widget class="QCheckBox" name="constant_intensity_online">
     <property name="geometry">
      <rect>
       <x>800</x>
