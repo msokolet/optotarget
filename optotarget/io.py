@@ -20,8 +20,10 @@ def analog_out_single(card, channel, val, cwd):
         task.ao_channels.add_ao_voltage_chan(f'{card}/ao{channel}')
         task.write(float(val))
         task.close()
-    except:
+    except nidaqmx.errors.DaqError as err:
         log_status('Could not connect to NI card. Please set name and press test.', cwd)
+        # print the specific error
+        print(err)
         
 
 def analog_out_wave(card, channel, sr, vec):
@@ -112,9 +114,11 @@ def reset(ni_card, cwd):
         device = nidaqmx.system.System.local().devices[ni_card]
         device.reset_device()
         log_status('Ready.', cwd)
-    except: # if could not reset - display status
+    except nidaqmx.errors.DaqError as err:
         log_status('Could not connect to NI card. Please set name and press test.', cwd)
-
+        # print the specific error
+        print(err)
+        
 def log_last_stimulation(region, cwd):
     '''
     Log the last stimulation to file.
