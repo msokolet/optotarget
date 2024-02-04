@@ -1,4 +1,4 @@
-![image](https://github.com/msokolet/optotarget/assets/20561448/03f77847-a9e5-489e-a8f7-8d41bfac3e4a)
+![image](https://github.com/msokolet/optotarget/assets/20561448/f98b131d-480d-4fd5-9fe6-1b1df18e5104)
 
 ## OptoTarget
 
