@@ -1223,12 +1223,12 @@
      <rect>
       <x>20</x>
       <y>0</y>
-      <width>221</width>
+      <width>251</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>For explanations, hover each parameter!</string>
+     <string>For explanations, hover over each parameter!</string>
     </property>
    </widget>
    <widget class="QPushButton" name="test_card_btn">
