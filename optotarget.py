@@ -44,8 +44,6 @@ class OptoTarget(QMainWindow):
         # add a menu bar and set its title to test
         self.menu_bar = self.menuBar()
         self.status = self.menu_bar.addMenu('status')
-        ot.log_status('Ready.', self.cwd)
-        self.status.setTitle('Ready.')
 
         # periodically update status every 100 ms
         self.status_timer = pg.QtCore.QTimer()
@@ -53,7 +51,7 @@ class OptoTarget(QMainWindow):
         self.status_timer.start(100)
 
         # reset the NI card
-        ot.reset(self.NI_card.text())
+        ot.reset(self.NI_card.text(), self.cwd)
 
         # set the icon to the icon file in the same folder as the program
         icon.addFile(os.path.join(self.cwd, 'icons', 'optotarget.jpg'))
@@ -81,6 +79,7 @@ class OptoTarget(QMainWindow):
         self.load_all_btn.clicked.connect(self.load_all)
         self.switch_protocol_btn.clicked.connect(self.switch_protocol)
         self.pulse_btn.clicked.connect(self.output_pulse)
+        self.test_card_btn.clicked.connect(lambda: ot.reset(self.NI_card.text(), self.cwd))
 
         # update the stimultation and/or stimulation plot when changing parameters
         self.on_dur.valueChanged.connect(self.update_plot)
@@ -171,7 +170,7 @@ class OptoTarget(QMainWindow):
         # if intensity is zero or is constant, simple output
         if self.cur_intensity.value() == 0 or self.constant_intensity_online.isChecked():
             self.stop_task()
-            ot.analog_out_single(self.NI_card.text(), self.intensity_ch.value(), self.cur_intensity.value())
+            ot.analog_out_single(self.NI_card.text(), self.intensity_ch.value(), self.cur_intensity.value(), self.cwd)
         else:
             # otherwise, output a wave
             self.output_wave()
@@ -342,7 +341,7 @@ class OptoTarget(QMainWindow):
             # first, stop the task if it exists
             self.stop_task()
             # reset the ni card and then zero all while waiting
-            ot.reset(self.NI_card.text())
+            ot.reset(self.NI_card.text(), self.cwd)
 
 
             # zero all while waiting
@@ -370,7 +369,7 @@ class OptoTarget(QMainWindow):
             # return status to ready
             ot.log_status('Ready.', self.cwd)
             # reset ni card
-            ot.reset(self.NI_card.text())
+            ot.reset(self.NI_card.text(), self.cwd)
             # wait 200 ms
             QtCore.QTimer.singleShot(200, self.zero_all)
 

@@ -1,13 +1,15 @@
-## Optotarget
+![image](https://github.com/msokolet/optotarget/assets/20561448/03f77847-a9e5-489e-a8f7-8d41bfac3e4a)
 
-GUI for running optogenetic stimulation protocols across multiple locations using X and Y galvanometers. The original approach is based on [Guo et al. 2014, Neuron](https://pubmed.ncbi.nlm.nih.gov/24361077/).
+## OptoTarget
+
+GUI for running optogenetic stimulation protocols across multiple locations using X and Y galvanometers. The original approach is based on [Guo et al. 2014](https://pubmed.ncbi.nlm.nih.gov/24361077/).
 
 Requirements:
 1. A laser device with intensity controllable by an analog input
 2. X and Y galvometric mirrors that deflect the laser beam, with their positions controllable by analog inputs
-3. An analog output NI card
+3. An NI card with at least 3 analog outputs and a trigger (TTL) input
 4. An installation of [NI-DAQmx](https://www.ni.com/en/support/downloads/drivers/download.ni-daq-mx.html)
-5. (Highly recommended) A camera, to easily see and precisely target the laser beam.
+5. (Highly recommended) A camera, to target the laser beam.
 
 First run only:
 1. Install an [Anaconda](https://www.anaconda.com/download/) distribution of Python.
@@ -29,5 +31,9 @@ Instructions:
 3. Create new targets using "create new" or load them from file via "load all". For each target, set the intensity, X position, and Y position, and group. The group determines which targets are activated together, with group 0 being the control group.
 4. Press 'start protocol'.
 
-Method of operation:
-After pressing 'start protocol', the program waits for trigger (TTL) pulses in the specified trigger channel. Each time it receives a pulse, it generates a psuedorandom number between 0 and 100. If the number is greater than 'stimulus probability', then group 0 (control) targets are stimulated. If it is lower than 'stimulus probability', then non-group 0 targets are stimulation, with each group being equally likely to be chosen.
+How it works:
+After pressing 'start protocol', the program waits for a trigger (TTL) pulse in the specified trigger channel. Each time it receives a pulse, it generates a psuedorandom number between 0 and 100. If the number is greater than 'stimulus probability', then group 0 (control) targets are stimulated. If it is lower than 'stimulus probability', then non-group 0 targets are stimulated, with each group being equally likely to be chosen. The status (upcoming targets) is saved in 'status.txt', the most recent targets are saved in 'stim.txt', and a continuous log of all targets is saved in 'log.txt'.
+
+An example of OptoTarget in action. Note this visualization requires a separate program to see the cortex and map it to the Allen Mouse Brain Common Coordinate Framework (for instance, [wfield](https://github.com/jcouto/wfield) by Joao Couto).
+
+https://github.com/msokolet/optotarget/assets/20561448/8e61609f-33de-4dc8-9b20-04ab1786975d

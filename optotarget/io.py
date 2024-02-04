@@ -11,14 +11,18 @@ from nidaqmx import stream_writers
 
 import optotarget as ot
 
-def analog_out_single(card, channel, val):
+def analog_out_single(card, channel, val, cwd):
     '''
     Set the analog output channel on the specified card to this value.
     '''
-    task = nidaqmx.Task()
-    task.ao_channels.add_ao_voltage_chan(f'{card}/ao{channel}')
-    task.write(float(val))
-    task.close()
+    try:
+        task = nidaqmx.Task()
+        task.ao_channels.add_ao_voltage_chan(f'{card}/ao{channel}')
+        task.write(float(val))
+        task.close()
+    except:
+        log_status('Could not connect to NI card. Please set name and press test.', cwd)
+        
 
 def analog_out_wave(card, channel, sr, vec):
     '''
@@ -100,12 +104,16 @@ def start_protocol(channels, sr, trigger, output, stim_prob, cwd):
         task.stop()
         task.close()
 
-def reset(ni_card):
+def reset(ni_card, cwd):
     '''
     Reset the NI card.
     '''
-    device = nidaqmx.system.System.local().devices[ni_card]
-    device.reset_device()
+    try:
+        device = nidaqmx.system.System.local().devices[ni_card]
+        device.reset_device()
+        log_status('Ready.', cwd)
+    except: # if could not reset - display status
+        log_status('Could not connect to NI card. Please set name and press test.', cwd)
 
 def log_last_stimulation(region, cwd):
     '''
