@@ -2,7 +2,7 @@
 
 ## OptoTarget
 
-GUI for running optogenetic stimulation protocols across multiple targets using X and Y galvanometers. The original approach is based on [Guo et al. 2014](https://pubmed.ncbi.nlm.nih.gov/24361077/), but is different in a few ways: first, this package has the ability to stimulate several regions simulatenously (most importantly across the two hemispheres), and second, targets are defined manually and not necessarily in a grid-like pattern. While a grid-like pattern may be useful for some exploratory projects, for many other projects it may be better to identify potentially important targets using apriori knowledge or neural activity recordings, which will greatly lower the number of trials needed for reasonable statistical power.
+GUI for running optogenetic stimulation protocols across multiple targets using X and Y galvanometers. The original approach is based on [Guo et al. 2014](https://pubmed.ncbi.nlm.nih.gov/24361077/), but is different in two main ways: first, this package has the ability to stimulate several regions simulatenously (most importantly across the two hemispheres), and second, targets are defined manually and not necessarily in a grid-like pattern. While a grid-like pattern may be useful for some exploratory projects, for many other projects it may be better to identify potentially important targets using apriori knowledge or neural activity recordings, which will greatly lower the number of trials needed for reasonable statistical power.
 
 Requirements:
 1. A laser device with intensity controllable by an analog input
