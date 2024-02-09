@@ -1,3 +1,5 @@
+https://github.com/msokolet/optotarget/assets/20561448/8e61609f-33de-4dc8-9b20-04ab1786975d
+
 ![image](https://github.com/msokolet/optotarget/assets/20561448/f98b131d-480d-4fd5-9fe6-1b1df18e5104)
 
 ## OptoTarget
@@ -34,6 +36,5 @@ Instructions:
 How it works:
 After pressing 'start protocol', the program waits for a trigger (TTL) pulse in the specified trigger channel. Each time it receives a pulse, it generates a psuedorandom number between 0 and 100. If the number is greater than 'stimulus probability', then group 0 (control) targets are stimulated. If it is lower than 'stimulus probability', then non-group 0 targets are stimulated, with each group being equally likely to be chosen. The status (upcoming targets) is saved in 'status.txt', the most recent targets are saved in 'stim.txt', and a continuous log of all targets is saved in 'log.txt'.
 
-An example of OptoTarget in action. Note this visualization requires a separate program to see the cortex and map it to the Allen Mouse Brain Common Coordinate Framework (for instance, [wfield](https://github.com/jcouto/wfield) by João Couto).
+At the top you can see an example of OptoTarget in action. Note this visualization requires a separate program to see the cortex and map it to the Allen Mouse Brain Common Coordinate Framework (for instance, [wfield](https://github.com/jcouto/wfield) by João Couto).
 
-https://github.com/msokolet/optotarget/assets/20561448/8e61609f-33de-4dc8-9b20-04ab1786975d
